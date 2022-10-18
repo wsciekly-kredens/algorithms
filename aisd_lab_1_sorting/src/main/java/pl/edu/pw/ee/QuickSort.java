@@ -2,11 +2,14 @@ package pl.edu.pw.ee;
 
 import pl.edu.pw.ee.services.Sorting;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class QuickSort implements Sorting {
 
     @Override
     public void sort(double[] nums) {
-    /*    if (unsortedVector == null) {
+        if (nums == null) {
             throw new IllegalArgumentException("Nums array cannot be null");
         }
 
@@ -30,8 +33,8 @@ public class QuickSort implements Sorting {
 
             while (n > 0) {
                 n--;
-                left = starts.get(n);
-                right = ends.get(n);
+                left = starts.remove(n);
+                right = ends.remove(n);
                 pivot = splitData(data, left, right);
 
                 if (pivot - 1 > left) {
@@ -79,7 +82,7 @@ public class QuickSort implements Sorting {
             double firstValue = data[firstId];
             data[firstId] = data[secondId];
             data[secondId] = firstValue;
-        }*/
+        }
     }
 
 }

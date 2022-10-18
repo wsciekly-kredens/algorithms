@@ -12,7 +12,7 @@ public class SelectionSortTest {
 
     @Before
     public void setUp() {
-        sorter = new SelectionSort();
+        sorter = new pl.edu.pw.ee.SelectionSort();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -66,7 +66,7 @@ public class SelectionSortTest {
     }
 
     @Test
-    public void shouldSortCorrectlyWhenWorstCaseGiven(){
+    public void shouldSortDescendingArrayGiven(){
         //given
         double nums[] = {5,4,3,2,1};
         
@@ -76,5 +76,18 @@ public class SelectionSortTest {
         //then
         double expected[] = {1,2,3,4,5};
         Assert.assertArrayEquals(expected,nums,EPS);
+    }
+
+    @Test
+    public void shouldSortNumbersInRandomOrder(){
+        //given
+        double nums[] = {14,3,68,1,4,15,6,3,22,48};
+
+        //when
+        sorter.sort(nums);
+
+        //then
+        double expected[] = {1,3,3,4,6,14,15,22,48,68};
+        Assert.assertArrayEquals(nums,expected,EPS);
     }
 }
