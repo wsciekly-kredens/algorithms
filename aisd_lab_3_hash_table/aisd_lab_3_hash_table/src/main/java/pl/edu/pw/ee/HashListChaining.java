@@ -53,6 +53,24 @@ public class HashListChaining implements HashTable {
 
         return elem != nil ? elem.value : nil;
     }
+    
+    @Override
+    public void delate(Object value){
+        int hashCode = value.hashCode();
+        int hashId = countHashId(hashCode);
+        
+        Elem elem = hashElems[hashId];
+        
+        while(elem != nil && !elem.value.equals(value)) {
+            elem = elem.next;
+        }
+        
+        if(elem != nil){
+            //dodanie usówania
+            nElem--;
+        }
+        //co jeżeli nie ma takiego elementu?
+    }
 
     public double countLoadFactor() {
         double size = hashElems.length;
@@ -69,7 +87,7 @@ public class HashListChaining implements HashTable {
 
     private int countHashId(int hashCode) {
         int n = hashElems.length;
-        return Math.abs(hashCode) % n;
+        return Math.abs(hashCode) % n; //ryzyk fizyk
     }
 
 }
