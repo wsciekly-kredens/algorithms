@@ -6,4 +6,6 @@ public interface HashTable {
 
     Object get(Object value);
 
+    void delate(Object value);
+
 }
