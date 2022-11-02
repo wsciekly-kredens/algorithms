@@ -68,7 +68,8 @@ public abstract class HashOpenAdressing<T extends Comparable<T>> implements Hash
     }
 
     abstract int hashFunc(int key, int i);
-
+    
+    @Override
     public int getSize() {
         return size;
     }
