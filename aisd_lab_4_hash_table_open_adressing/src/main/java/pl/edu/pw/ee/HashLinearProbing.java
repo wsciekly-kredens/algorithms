@@ -1,6 +1,6 @@
 package pl.edu.pw.ee;
 
-public class HashLinearProbing<T extends Comparable<T>> extends HashOpenAdressing<T> {
+public class HashLinearProbing<T extends Comparable<T>> extends pl.edu.pw.ee.HashOpenAdressing<T> {
 
     public HashLinearProbing() {
         super();
