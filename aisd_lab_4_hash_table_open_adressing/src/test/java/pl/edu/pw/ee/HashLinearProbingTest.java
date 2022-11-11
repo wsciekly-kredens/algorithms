@@ -1,6 +1,7 @@
 package pl.edu.pw.ee;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import java.lang.reflect.Field;
 
@@ -86,6 +87,123 @@ public class HashLinearProbingTest {
         //then
         assertEquals(6, numberOfElemsAfterPut);
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void should_ThrowException_WhenGettingNull() {
+        //given
+        HashTable<String> hash = new HashLinearProbing<>(5);
+
+        //when
+        hash.get(null);
+
+        //then
+        assert false;
+    }
+
+    @Test
+    public void should_GetElemInHashAndReturnIt_WhenElementInHash() {
+        //given
+        HashTable<String> hash = new HashLinearProbing<>(5);
+        String newElems[] = {"Ala", "ma", "kota"};
+
+        //when
+        for (String newElem : newElems) {
+            hash.put(newElem);
+        }
+        Object elem = hash.get("ma");
+
+        //then
+        assertEquals(newElems[1], elem);
+    }
+
+    @Test
+    public void should_ReturnNull_WhenGettingFromEmptyHash() {
+        //given
+        HashTable<String> hash = new HashLinearProbing<>(5);
+
+        //when
+        Object elem = hash.get("ma");
+
+        //then
+        assertNull(elem);
+    }
+
+    @Test
+    public void should_ReturnNull_WhenElementNotInHash() {
+        //given
+        HashTable<String> hash = new HashLinearProbing<>(5);
+        String newElems[] = {"Ala", "ma", "kota"};
+
+        //when
+        for (String newElem : newElems) {
+            hash.put(newElem);
+        }
+        Object elem = hash.get("Filemona");
+
+        //then
+        assertNull(elem);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void should_ThrowException_WhenDeletingNull() {
+        //given
+        HashTable<String> hash = new HashLinearProbing<>(5);
+
+        //when
+        hash.delete(null);
+
+        //then
+        assert false;
+    }
+
+    @Test
+    public void should_DeleteElement_WhenInHash() {
+        //given
+        HashTable<String> hash = new HashLinearProbing<>(5);
+        String newElems[] = {"Ala", "ma", "kota"};
+
+        //when
+        for (String newElem : newElems) {
+            hash.put(newElem);
+        }
+        Object elem = hash.get("ma");
+        hash.delete("ma");
+        Object delatedElem = hash.get("ma");
+
+        //then
+        assertEquals("ma", elem);
+        assertNull(delatedElem);
+    }
+
+    @Test
+    public void should_RunContinuously_WhenDeleteElementFromEmptyHash() {
+        //given
+        HashTable<String> hash = new HashLinearProbing<>(5);
+
+        //when
+        hash.delete("Geralt");
+
+        //then
+        assert true;
+    }
+
+    @Test
+    public void should_RunContinuously_WhenDeleteNonExistingElementFromHash() {
+        //given
+        HashTable<String> hash = new HashLinearProbing<>(5);
+        String newElems[] = {"Koziołek", "Matołek", "Pacanowo"};
+
+        //when
+        for (String newElem : newElems) {
+            hash.put(newElem);
+        }
+        hash.delete("ma");
+
+        //then
+        assert true;
+
+    }
+
 
     private int getNumOfElems(HashTable<?> hash) {
         String fieldNumOfElems = "nElems";

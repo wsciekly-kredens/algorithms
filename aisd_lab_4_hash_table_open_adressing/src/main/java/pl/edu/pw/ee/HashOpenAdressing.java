@@ -1,6 +1,7 @@
 package pl.edu.pw.ee;
 
 import java.util.Arrays;
+
 import pl.edu.pw.ee.exceptions.NotImplementedException;
 import pl.edu.pw.ee.services.HashTable;
 
@@ -34,8 +35,8 @@ public abstract class HashOpenAdressing<T extends Comparable<T>> implements Hash
         int i = 0;
         int hashId = hashFunc(key, i);
 
-        while (hashElems[hashId] != nil) {
-            i = (i + 1) % size;
+        while (hashElems[hashId] != nil && hashElems[hashId] != del) {
+            i += 1;
             hashId = hashFunc(key, i);
         }
 
@@ -45,14 +46,33 @@ public abstract class HashOpenAdressing<T extends Comparable<T>> implements Hash
 
     @Override
     public T get(T elem) {
-        // TODO Auto-generated method stub
+        validateInputElem(elem);
+        int hashCode = elem.hashCode();
+        int i = 0;
+        int hashId = hashFunc(hashCode, i);
+        while (hashElems[hashId] != nil) {
+            if (hashElems[hashId] == elem) {
+                return hashElems[hashId];
+            }
+            i += 1;
+            hashId = hashFunc(hashCode, i);
+        }
         return null;
     }
 
     @Override
     public void delete(T elem) {
-        // TODO Auto-generated method stub
-
+        validateInputElem(elem);
+        int hashCode = elem.hashCode();
+        int i = 0;
+        int hashId = hashFunc(hashCode, i);
+        while (hashElems[hashId] != nil) {
+            if (hashElems[hashId] == elem) {
+                hashElems[hashId] = del;
+            }
+            i += 1;
+            hashId = hashFunc(hashCode, i);
+        }
     }
 
     private void validateHashInitSize(int initialSize) {
@@ -68,7 +88,7 @@ public abstract class HashOpenAdressing<T extends Comparable<T>> implements Hash
     }
 
     abstract int hashFunc(int key, int i);
-    
+
     @Override
     public int getSize() {
         return size;
@@ -87,12 +107,12 @@ public abstract class HashOpenAdressing<T extends Comparable<T>> implements Hash
     }
 
     private void doubleResize() {
-        T[] refArray = Arrays.copyOf(this.hashElems,size);
+        T[] refArray = Arrays.copyOf(this.hashElems, size);
         this.size *= 2;
         this.hashElems = (T[]) new Comparable[this.size];
         this.nElems = 0;
-        for(T x : refArray){
-            if(x != nil && x != del){
+        for (T x : refArray) {
+            if (x != nil && x != del) {
                 this.put(x);
             }
         }
