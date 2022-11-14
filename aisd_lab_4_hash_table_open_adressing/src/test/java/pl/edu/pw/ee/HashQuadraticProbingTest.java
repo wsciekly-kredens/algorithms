@@ -1,24 +1,23 @@
-package pl.edu.pw.ee;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-
-import java.lang.reflect.Field;
+package test.java.pl.edu.pw.ee;
 
 import org.junit.Test;
 
+import java.lang.reflect.Field;
+
+import static org.junit.Assert.*;
+
+import pl.edu.pw.ee.HashQuadraticProbing;
 import pl.edu.pw.ee.services.HashTable;
-import pl.edu.pw.ee.HashLinearProbing;
 
-public class HashLinearProbingTest {
 
+public class HashQuadraticProbingTest {
     @Test(expected = IllegalArgumentException.class)
     public void should_ThrowException_WhenInitialSizeIsLowerThanOne() {
         // given
         int initialSize = 0;
 
         // when
-        HashTable<Double> unusedHash = new HashLinearProbing<>(initialSize);
+        pl.edu.pw.ee.services.HashTable<Double> unusedHash = new pl.edu.pw.ee.HashQuadraticProbing<>(.4, .3, initialSize);
 
         // then
         assert false;
@@ -27,7 +26,7 @@ public class HashLinearProbingTest {
     @Test
     public void should_CorrectlyAddNewElems_WhenNotExistInHashTable() {
         // given
-        HashTable<String> emptyHash = new HashLinearProbing<>();
+        pl.edu.pw.ee.services.HashTable<String> emptyHash = new pl.edu.pw.ee.HashQuadraticProbing<>();
         String newEleme = "nothing special";
 
         // when
@@ -43,7 +42,7 @@ public class HashLinearProbingTest {
     @Test(expected = IllegalArgumentException.class)
     public void should_ThrowException_WhenPuttingNull() {
         //given
-        HashTable<String> hash = new HashLinearProbing<>(5);
+        pl.edu.pw.ee.services.HashTable<String> hash = new pl.edu.pw.ee.HashQuadraticProbing<>(.4, .3, 5);
         String newElem = null;
 
         //when
@@ -56,7 +55,7 @@ public class HashLinearProbingTest {
     @Test
     public void should_CorrectlyResizeHash_WhenLoadFactorIsToBig() {
         //given
-        HashTable<String> hash = new HashLinearProbing<>(5);
+        pl.edu.pw.ee.services.HashTable<String> hash = new pl.edu.pw.ee.HashQuadraticProbing<>(.4, .3, 5);
         String newElems[] = {"Ala", "ma", "rudego", "kota", "Gacka"};
 
         //when
@@ -75,7 +74,7 @@ public class HashLinearProbingTest {
     @Test
     public void should_CorrectlyPunItemsIntoHash_WhenResized() {
         //given
-        HashTable<String> hash = new HashLinearProbing<>(5);
+        pl.edu.pw.ee.services.HashTable<String> hash = new pl.edu.pw.ee.HashQuadraticProbing<>(.4, .3, 5);
         String newElems[] = {"oto", "nadchodzi", "czas", "miecza", "i", "topora"};
 
         //when
@@ -91,7 +90,7 @@ public class HashLinearProbingTest {
     @Test(expected = IllegalArgumentException.class)
     public void should_ThrowException_WhenGettingNull() {
         //given
-        HashTable<String> hash = new HashLinearProbing<>(5);
+        pl.edu.pw.ee.services.HashTable<String> hash = new pl.edu.pw.ee.HashQuadraticProbing<>(.4, .3, 5);
 
         //when
         hash.get(null);
@@ -103,7 +102,7 @@ public class HashLinearProbingTest {
     @Test
     public void should_GetElemInHashAndReturnIt_WhenElementInHash() {
         //given
-        HashTable<String> hash = new HashLinearProbing<>(5);
+        pl.edu.pw.ee.services.HashTable<String> hash = new pl.edu.pw.ee.HashQuadraticProbing<>(.4, .3, 5);
         String newElems[] = {"Ala", "ma", "kota"};
 
         //when
@@ -119,7 +118,7 @@ public class HashLinearProbingTest {
     @Test
     public void should_ReturnNull_WhenGettingFromEmptyHash() {
         //given
-        HashTable<String> hash = new HashLinearProbing<>(5);
+        pl.edu.pw.ee.services.HashTable<String> hash = new pl.edu.pw.ee.HashQuadraticProbing<>(.4, .3, 5);
 
         //when
         Object elem = hash.get("ma");
@@ -131,7 +130,7 @@ public class HashLinearProbingTest {
     @Test
     public void should_ReturnNull_WhenElementNotInHash() {
         //given
-        HashTable<String> hash = new HashLinearProbing<>(5);
+        pl.edu.pw.ee.services.HashTable<String> hash = new pl.edu.pw.ee.HashQuadraticProbing<>(.4, .3, 5);
         String newElems[] = {"Ala", "ma", "kota"};
 
         //when
@@ -147,7 +146,7 @@ public class HashLinearProbingTest {
     @Test(expected = IllegalArgumentException.class)
     public void should_ThrowException_WhenDeletingNull() {
         //given
-        HashTable<String> hash = new HashLinearProbing<>(5);
+        pl.edu.pw.ee.services.HashTable<String> hash = new pl.edu.pw.ee.HashQuadraticProbing<>(.4, .3, 5);
 
         //when
         hash.delete(null);
@@ -159,7 +158,7 @@ public class HashLinearProbingTest {
     @Test
     public void should_DeleteElement_WhenInHash() {
         //given
-        HashTable<String> hash = new HashLinearProbing<>(5);
+        pl.edu.pw.ee.services.HashTable<String> hash = new pl.edu.pw.ee.HashQuadraticProbing<>(.5, .6, 5);
         String newElems[] = {"Ala", "ma", "kota"};
 
         //when
@@ -178,7 +177,7 @@ public class HashLinearProbingTest {
     @Test
     public void should_RunContinuously_WhenDeleteElementFromEmptyHash() {
         //given
-        HashTable<String> hash = new HashLinearProbing<>(5);
+        pl.edu.pw.ee.services.HashTable<String> hash = new pl.edu.pw.ee.HashQuadraticProbing<>(.3, .2, 5);
 
         //when
         hash.delete("Geralt");
@@ -190,7 +189,7 @@ public class HashLinearProbingTest {
     @Test
     public void should_RunContinuously_WhenDeleteNonExistingElementFromHash() {
         //given
-        HashTable<String> hash = new HashLinearProbing<>(5);
+        pl.edu.pw.ee.services.HashTable<String> hash = new pl.edu.pw.ee.HashQuadraticProbing<>(.7, .5, 5);
         String newElems[] = {"Koziołek", "Matołek", "Pacanowo"};
 
         //when
@@ -207,7 +206,7 @@ public class HashLinearProbingTest {
     @Test
     public void should_GetValue_WhenPreviousValueWasDeleted() {
         //given
-        HashTable<Integer> hash = new HashLinearProbing<>(5);
+        pl.edu.pw.ee.services.HashTable<Integer> hash = new pl.edu.pw.ee.HashQuadraticProbing<>(.3, .7, 5);
         Integer newElems[] = {1, 6, 11};
 
         //when
@@ -222,7 +221,7 @@ public class HashLinearProbingTest {
     }
 
 
-    private int getNumOfElems(HashTable<?> hash) {
+    private int getNumOfElems(pl.edu.pw.ee.services.HashTable<?> hash) {
         String fieldNumOfElems = "nElems";
         try {
             System.out.println(hash.getClass().getSuperclass().getName());
@@ -237,4 +236,5 @@ public class HashLinearProbingTest {
             throw new RuntimeException(e);
         }
     }
+
 }

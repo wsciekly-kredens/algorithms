@@ -9,6 +9,7 @@ public abstract class HashOpenAdressing<T extends Comparable<T>> implements Hash
 
     private final T nil = null;
     private final T del = null;
+    private boolean[] isDeleted;
     private int size;
     private int nElems;
     private T[] hashElems;
@@ -24,6 +25,7 @@ public abstract class HashOpenAdressing<T extends Comparable<T>> implements Hash
         this.size = size;
         this.hashElems = (T[]) new Comparable[this.size];
         this.correctLoadFactor = 0.75;
+        this.isDeleted = new boolean[this.size];
     }
 
     @Override
@@ -35,26 +37,29 @@ public abstract class HashOpenAdressing<T extends Comparable<T>> implements Hash
         int i = 0;
         int hashId = hashFunc(key, i);
 
-        while (hashElems[hashId] != nil && hashElems[hashId] != del) {
-            i += 1;
+        while (hashElems[hashId] != nil || isDeleted[hashId]) {
+            i = (i + 1) % size;
             hashId = hashFunc(key, i);
         }
 
         hashElems[hashId] = newElem;
+        isDeleted[hashId] = false; // można chyba nie trzeba
         nElems++;
     }
 
     @Override
     public T get(T elem) {
         validateInputElem(elem);
+
         int hashCode = elem.hashCode();
         int i = 0;
         int hashId = hashFunc(hashCode, i);
-        while (hashElems[hashId] != nil) {
+
+        while ((hashElems[hashId] != nil || isDeleted[hashId]) && i != size - 1) {
             if (hashElems[hashId] == elem) {
                 return hashElems[hashId];
             }
-            i += 1;
+            i = (i + 1) % size;
             hashId = hashFunc(hashCode, i);
         }
         return null;
@@ -63,14 +68,19 @@ public abstract class HashOpenAdressing<T extends Comparable<T>> implements Hash
     @Override
     public void delete(T elem) {
         validateInputElem(elem);
+
         int hashCode = elem.hashCode();
         int i = 0;
         int hashId = hashFunc(hashCode, i);
+
         while (hashElems[hashId] != nil) {
             if (hashElems[hashId] == elem) {
                 hashElems[hashId] = del;
+                isDeleted[hashId] = true;
+                nElems--;
+                break; //grrr
             }
-            i += 1;
+            i = (i + 1) % size;
             hashId = hashFunc(hashCode, i);
         }
     }
@@ -111,8 +121,9 @@ public abstract class HashOpenAdressing<T extends Comparable<T>> implements Hash
         this.size *= 2;
         this.hashElems = (T[]) new Comparable[this.size];
         this.nElems = 0;
+        this.isDeleted = new boolean[this.size];
         for (T x : refArray) {
-            if (x != nil && x != del) {
+            if (x != nil) {
                 this.put(x);
             }
         }
