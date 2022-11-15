@@ -6,7 +6,6 @@ import java.lang.reflect.Field;
 
 import static org.junit.Assert.*;
 
-//W pucie dla odpowiednio małego hasza się zapętla, dobrz byłoby to jakoś załatać, jeżeli ne zrobić że działa dobrze, to chociaż zatrzymać zapętlanie w nieskończoność
 public class HashDoubleHashingTest {
     @Test(expected = IllegalArgumentException.class)
     public void should_ThrowException_WhenInitialSizeIsLowerThanOne() {
@@ -68,7 +67,7 @@ public class HashDoubleHashingTest {
 
     }
 
-    @Test // no nie działa ten hasz jakość fajnie nie powiem że nie
+    @Test
     public void should_CorrectlyPunItemsIntoHash_WhenResized() {
         //given
         pl.edu.pw.ee.services.HashTable<String> hash = new pl.edu.pw.ee.HashDoubleHashing<>(8);

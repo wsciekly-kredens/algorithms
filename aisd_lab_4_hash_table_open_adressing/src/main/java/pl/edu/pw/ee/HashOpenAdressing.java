@@ -8,7 +8,6 @@ import pl.edu.pw.ee.services.HashTable;
 public abstract class HashOpenAdressing<T extends Comparable<T>> implements HashTable<T> {
 
     private final T nil = null;
-    private final T del = null;
     private boolean[] isDeleted;
     private int size;
     private int nElems;
@@ -16,7 +15,7 @@ public abstract class HashOpenAdressing<T extends Comparable<T>> implements Hash
     private final double correctLoadFactor;
 
     HashOpenAdressing() {
-        this(2039); // initial size as random prime number
+        this(2039);
     }
 
     HashOpenAdressing(int size) {
@@ -43,7 +42,7 @@ public abstract class HashOpenAdressing<T extends Comparable<T>> implements Hash
         }
 
         hashElems[hashId] = newElem;
-        isDeleted[hashId] = false; // można chyba nie trzeba
+        isDeleted[hashId] = false;
         nElems++;
     }
 
@@ -75,10 +74,10 @@ public abstract class HashOpenAdressing<T extends Comparable<T>> implements Hash
 
         while (hashElems[hashId] != nil) {
             if (hashElems[hashId] == elem) {
-                hashElems[hashId] = del;
+                hashElems[hashId] = nil;
                 isDeleted[hashId] = true;
                 nElems--;
-                break; //grrr
+                break;
             }
             i = (i + 1) % size;
             hashId = hashFunc(hashCode, i);

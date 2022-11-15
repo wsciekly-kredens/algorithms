@@ -20,5 +20,4 @@ public class HashDoubleHashing<T extends Comparable<T>> extends pl.edu.pw.ee.Has
 
         return hash;
     }
-// TODO
 }
