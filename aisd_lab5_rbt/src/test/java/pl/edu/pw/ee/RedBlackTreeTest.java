@@ -1,6 +1,6 @@
 package pl.edu.pw.ee;
 
-public class RbtMapTest {
+public class RedBlackTreeTest {
 
 	// TODO
 
