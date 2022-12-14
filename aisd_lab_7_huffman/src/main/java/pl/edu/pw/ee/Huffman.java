@@ -22,6 +22,7 @@ public class Huffman {
         HashMap<Character, String> codes = new HashMap<>();
         getHuffmanTreeCodes(this.huffmanTree, "", codes);
         System.out.println(codes);
+        System.out.println(codeFileToString(text,codes));
         return -1; // przy dekompresji zwraca liczbnę znaków w pliku a przy kompresji ile jestbitów w wynikowym pliku
     }
 
@@ -86,7 +87,24 @@ public class Huffman {
         }
         return codes;
     }
-
-    public String
-
+    
+    
+    private String codeFileToString(String text, HashMap<Character,String> codes){
+        String codedString = new String();
+        char[] characters = text.toCharArray();
+        for(char character : characters){
+            codedString += codes.get(character);
+        }            
+        return codedString;
+    }
+    
+    private byte[] compressFile(String codedString){
+        int codedStringLength = codedString.length();
+        int extraBits = codedStringLength%8;
+        byte[] compresedToByte = new byte[codedStringLength/8];
+        for(int i = 0; i<codedStringLength; i+=8){
+            String substringToBeConvertedToByte = codedString.substring(i,i+7);
+        }
+        return null;
+    }
 }

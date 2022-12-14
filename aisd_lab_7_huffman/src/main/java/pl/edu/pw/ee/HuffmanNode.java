@@ -1,11 +1,11 @@
 package main.java.pl.edu.pw.ee;
 
 public class HuffmanNode implements Comparable<HuffmanNode> {
-    char character;
-    int numberOfOccurrences;
-    HuffmanNode leftNode = null;
-    HuffmanNode rightNode = null;
-    boolean isLeaf = true;
+    private char character;
+    private int numberOfOccurrences;
+    private HuffmanNode leftNode = null;
+    private HuffmanNode rightNode = null;
+    private boolean isLeaf = true;
 
     public HuffmanNode(char character, int numberOfOccurrences) {
         this.character = character;

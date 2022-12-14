@@ -24,15 +24,12 @@ public class HuffmanTest {
     }
 
     @Test
-    public void readTest() {
+    public void readTest() throws IOException {
         //given
         Huffman huffman = new Huffman();
 
         //when
-        try {
-            huffman.huffman("aisd_lab_7_huffman/huffmanTreeTestText", false);
-        } catch (IOException e) {
-        }
+        huffman.huffman("C:\\Users\\kowalsm6\\Documents\\huffmanTreeTestText.txt", false);
 
         //then
         assert true;
@@ -41,7 +38,7 @@ public class HuffmanTest {
     @Test
     public void huffmanTreeBuildTest() throws IOException {
         //given
-        String path = new String("aisd_lab_7_huffman/huffmanTreeTestText");
+        String path = new String("C:\\Users\\kowalsm6\\Documents\\huffmanTreeTestText.txt");
         Huffman huffman = new Huffman();
 
         //when
@@ -59,6 +56,12 @@ public class HuffmanTest {
         expected.put('\r', "11111");
         Assert.assertEquals(expected, huffmanTreeCodes);
     }
+    
+    @Test
+    public void huffmanCodingTest(){
+        //given
+        Huffman huffman = new Huffman();
+    }
 
     @Test
     public void encodingTest() throws UnsupportedEncodingException {
@@ -68,7 +71,6 @@ public class HuffmanTest {
             System.out.println(x);
         }
         System.out.println(alakociara);
-
     }
 
 }
