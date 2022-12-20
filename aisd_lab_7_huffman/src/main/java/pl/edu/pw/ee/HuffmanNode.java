@@ -13,15 +13,21 @@ public class HuffmanNode implements Comparable<HuffmanNode> {
     }
 
     public void setLeftNode(HuffmanNode leftNode) {
+        if (leftNode == null) {
+            throw new IllegalArgumentException();
+        }
         this.leftNode = leftNode;
     }
 
     public void setRightNode(HuffmanNode rightNode) {
+        if (rightNode == null) {
+            throw new IllegalArgumentException();
+        }
         this.rightNode = rightNode;
     }
 
     public void setAsLNotLeaf() {
-        this.isLeaf = false; //questionable
+        this.isLeaf = false;
     }
 
     public char getCharacter() {
