@@ -7,12 +7,46 @@ import pl.edu.pw.ee.Huffman;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
-import java.util.InputMismatchException;
 
 import static org.junit.Assert.assertEquals;
 
 public class HuffmanTest {
+
+    @Test(expected = NullPointerException.class)
+    public void setLeftNodeNullProvided() {
+        //given
+        HuffmanNode huffmanNode = new HuffmanNode('a', 1);
+
+        //when
+        huffmanNode.setLeftNode(null);
+
+        //then
+        assert false;
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void setRightNodeNullProvided() {
+        //given
+        HuffmanNode huffmanNode = new HuffmanNode('a', 1);
+
+        //when
+        huffmanNode.setRightNode(null);
+
+        //then
+        assert false;
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void huffmanNodeCompareToNullProvided() {
+        //given
+        HuffmanNode huffmanNode = new HuffmanNode('a', 1);
+
+        //when
+        huffmanNode.compareTo(null);
+
+        //then
+        assert false;
+    }
 
     @Test(expected = IOException.class)
     public void pathToNonExistingFileGiven() throws IOException {
@@ -27,7 +61,7 @@ public class HuffmanTest {
         assert false;
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = NullPointerException.class)
     public void nullPathGiven() throws IOException {
         //given
         Huffman huffman = new Huffman();
@@ -162,7 +196,7 @@ public class HuffmanTest {
         assertEquals(295119, charactersInCompressFile);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = NullPointerException.class)
     public void printTreeWithProvidedNull() {
         //given
         Huffman huffman = new Huffman();

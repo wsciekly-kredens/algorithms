@@ -12,7 +12,7 @@ public class Huffman {
 
     public int huffman(String pathToRootDir, boolean compress) throws IOException {
         if (pathToRootDir == null) {
-            throw new IllegalArgumentException();
+            throw new NullPointerException("Can't open file because null pathToDir given");
         }
         if (compress) {
             return compress(pathToRootDir);
@@ -90,7 +90,7 @@ public class Huffman {
 
     public void printTree(HuffmanNode rootNode) {
         if (rootNode == null) {
-            throw new IllegalArgumentException();
+            throw new NullPointerException("Can't print tree because null rootNode given");
         }
         if (rootNode.getLeftNode() != null) {
             printTree(rootNode.getLeftNode());

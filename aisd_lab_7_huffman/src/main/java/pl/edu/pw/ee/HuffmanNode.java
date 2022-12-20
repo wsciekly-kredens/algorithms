@@ -14,14 +14,14 @@ public class HuffmanNode implements Comparable<HuffmanNode> {
 
     public void setLeftNode(HuffmanNode leftNode) {
         if (leftNode == null) {
-            throw new IllegalArgumentException();
+            throw new NullPointerException();
         }
         this.leftNode = leftNode;
     }
 
     public void setRightNode(HuffmanNode rightNode) {
         if (rightNode == null) {
-            throw new IllegalArgumentException();
+            throw new NullPointerException();
         }
         this.rightNode = rightNode;
     }
@@ -57,10 +57,13 @@ public class HuffmanNode implements Comparable<HuffmanNode> {
 
 
     @Override
-    public int compareTo(HuffmanNode o) {
-        if (this.numberOfOccurrences > o.numberOfOccurrences) {
+    public int compareTo(HuffmanNode anotherNode) {
+        if (anotherNode == null) {
+            throw new NullPointerException("Can't get numberOfOccurrences because anotherNode is null");
+        }
+        if (this.numberOfOccurrences > anotherNode.numberOfOccurrences) {
             return 1;
-        } else if (this.numberOfOccurrences == o.numberOfOccurrences) {
+        } else if (this.numberOfOccurrences == anotherNode.numberOfOccurrences) {
             return 0;
         } else {
             return -1;
