@@ -22,7 +22,7 @@ public class MatrixCellTest {
     }
 
     @Test(expected = NullPointerException.class)
-    public void compareToWithSourceObjectEqualToNull() {
+    public void compareToWithThisObjectEqualToNull() {
         //given
         MatrixCell nullCell = null;
         MatrixCell cell = new MatrixCell(10);

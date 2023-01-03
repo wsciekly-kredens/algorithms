@@ -3,11 +3,16 @@ package pl.edu.pw.ee;
 import main.java.pl.edu.pw.ee.Direction;
 import pl.edu.pw.ee.MatrixCell;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 class LongestCommonSubsequence {
 
-    MatrixCell[][] matrix;
-    char[] topStr;
-    char[] leftStr;
+    private MatrixCell[][] matrix;
+    private char[] topStr;
+    private char[] leftStr;
+    private boolean isLCSFound = false;
 
     public LongestCommonSubsequence(String topStr, String leftStr) {
         if (topStr == null || leftStr == null) {
@@ -56,21 +61,21 @@ class LongestCommonSubsequence {
                     row--;
                     break;
                 case VERTICAL:
-                    if (topStr[column - 1] == ('\n')) {
-                        longestCommonSequence.append("n\\");
-                    } else {
-                        longestCommonSequence.append(topStr[column - 1]);
-                    }
+                    longestCommonSequence.append(topStr[column - 1]);
                     row--;
                     column--;
                     break;
             }
             nextCell = matrix[row][column];
         }
+        isLCSFound = true;
         return longestCommonSequence.reverse().toString();
     }
 
     public void display() {
+        if (!isLCSFound) {
+            throw new IllegalStateException("You have to call findLCS first!");
+        }
         int numberOfDigitsInBiggestNumber = String.valueOf(matrix[leftStr.length][topStr.length].getValue()).length();
         int columnWidth = numberOfDigitsInBiggestNumber + 4;
         String rowSeparator = getRowSeparator(columnWidth);
@@ -96,8 +101,14 @@ class LongestCommonSubsequence {
 
     private String centerString(int width, String toBeCentred) {
         StringBuilder centredString = new StringBuilder();
-        if (toBeCentred.equals("\n")) {
-            toBeCentred = "\\n";
+        ArrayList<String> specialCharacters = new ArrayList(Arrays.asList("\n", "\'", "\"", "\t", "\b", "\\", "\r", "\f'"));
+        String[] specialCharactersReplacements = {"\\n", "\\'", "\\\"", "\\t", "\\b", "\\\\", "\\r", "\\f"};
+        if (specialCharacters.contains(toBeCentred)) {
+            for (int i = 0; i < specialCharacters.size(); i++) {
+                if (specialCharacters.get(i).equals(toBeCentred)) {
+                    toBeCentred = specialCharactersReplacements[i];
+                }
+            }
         }
         int rightPadding = 2;
         int leftPadding = width - toBeCentred.length() - 2;

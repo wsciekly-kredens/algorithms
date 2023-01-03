@@ -3,7 +3,6 @@ package pl.edu.pw.ee;
 import main.java.pl.edu.pw.ee.Direction;
 
 public class MatrixCell implements Comparable<MatrixCell> {
-    //moge doimplementować to jako comparable
     private int value;
     private Direction direction;
     private boolean isPartOfLongestSequence;
